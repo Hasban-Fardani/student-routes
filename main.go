@@ -120,6 +120,10 @@ func updateStudent(c echo.Context) error {
 func deleteStudent(c echo.Context) error {
 	// Tulis jawabanmu disini
 	id, _ := strconv.Atoi(c.Param("id"))
-	students = append(students[:id], students[id:]...)
+	for i, student := range students {
+		if student.ID == id {
+			students = append(students[:i], students[i+1:]...)
+		}
+	}
 	return c.JSON(http.StatusNoContent, students)
 }
